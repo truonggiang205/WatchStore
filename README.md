@@ -1,20 +1,20 @@
 # WatchStore Backend
 
-Backend cho website ban dong ho WatchStore, xay dung bang Spring Boot. He thong cung cap API cho frontend quan ly san pham dong ho, gio hang, don hang, danh gia, voucher, bao hanh, nhap hang, nha cung cap, thong bao, chat ho tro va bao cao.
+Backend cho website bán đồng hồ WatchStore, xây dựng bằng Spring Boot. Hệ thống cung cấp API cho frontend quản lý sản phẩm đồng hồ, giỏ hàng, đơn hàng, đánh giá, voucher, bảo hành, nhập hàng, nhà cung cấp, thông báo, chat hỗ trợ và báo cáo.
 
-## Tinh nang chinh
+## Tính năng chính
 
-- Xac thuc va phan quyen bang JWT cho cac vai tro `CUSTOMER`, `STAFF`, `OWNER`.
-- Dang ky tai khoan khach hang voi OTP email, dang nhap bang username hoac email, quen mat khau va doi mat khau.
-- Quan ly nguoi dung, khach hang, nhan vien va khoa/mo khoa tai khoan.
-- Quan ly danh muc, san pham dong ho, anh san pham va so sanh san pham.
-- Gio hang, dat hang, QR payment, huy don, cap nhat trang thai don hang va lich su trang thai.
-- Danh gia san pham, voucher, nha cung cap va phieu nhap hang.
-- Yeu cau bao hanh va quy trinh duyet/tu choi bao hanh.
-- Thong bao he thong, chat AI, chat ho tro giua khach hang va nhan vien.
-- Bao cao dashboard, doanh thu, don hang theo ngay/thang va san pham ban chay.
+- Xác thực và phân quyền bằng JWT cho các vai trò `CUSTOMER`, `STAFF`, `OWNER`.
+- Đăng ký tài khoản khách hàng với OTP email, đăng nhập bằng username hoặc email, quên mật khẩu và đổi mật khẩu.
+- Quản lý người dùng, khách hàng, nhân viên và khóa/mở khóa tài khoản.
+- Quản lý danh mục, sản phẩm đồng hồ, ảnh sản phẩm và so sánh sản phẩm.
+- Giỏ hàng, đặt hàng, QR payment, hủy đơn, cập nhật trạng thái đơn hàng và lịch sử trạng thái.
+- Đánh giá sản phẩm, voucher, nhà cung cấp và phiếu nhập hàng.
+- Yêu cầu bảo hành và quy trình duyệt/từ chối bảo hành.
+- Thông báo hệ thống, chat AI, chat hỗ trợ giữa khách hàng và nhân viên.
+- Báo cáo dashboard, doanh thu, đơn hàng theo ngày/tháng và sản phẩm bán chạy.
 
-## Cong nghe
+## Công nghệ
 
 - Java 17
 - Spring Boot 3.5
@@ -30,52 +30,52 @@ Backend cho website ban dong ho WatchStore, xay dung bang Spring Boot. He thong 
 - Spring AI Google GenAI
 - Qdrant vector store
 
-## Cau truc thu muc
+## Cấu trúc thư mục
 
 ```text
 demo/
   src/main/java/com/example/demo/
-    config/          # cau hinh security, CORS, JWT, AI, exception
+    config/          # cấu hình security, CORS, JWT, AI, exception
     controllers/     # REST API controllers
     dtos/            # request/response DTO
-    entities/        # JPA entities va enum
-    exceptions/      # exception rieng
+    entities/        # JPA entities và enum
+    exceptions/      # exception riêng
     repositories/    # Spring Data repositories
     services/        # business logic
-  docs/              # tai lieu ky thuat va data SQL
-  API_FLOW.md        # tong hop API va flow nghiep vu
+  docs/              # tài liệu kỹ thuật và data SQL
+  API_FLOW.md        # tổng hợp API và flow nghiệp vụ
 ```
 
-## Yeu cau moi truong
+## Yêu cầu môi trường
 
 - Java 17
-- MySQL 8 hoac tuong duong
-- Maven Wrapper da co san trong repo
-- Tai khoan/dich vu tuy chon neu dung day du tinh nang: Cloudinary, SMTP mail, Google GenAI, Qdrant
+- MySQL 8 hoặc tương đương
+- Maven Wrapper đã có sẵn trong repo
+- Tài khoản/dịch vụ tùy chọn nếu dùng đầy đủ tính năng: Cloudinary, SMTP mail, Google GenAI, Qdrant
 
-## Cai dat va chay local
+## Cài đặt và chạy local
 
 ```bash
 cd demo
 ./mvnw spring-boot:run
 ```
 
-Tren Windows PowerShell:
+Trên Windows PowerShell:
 
 ```powershell
 cd demo
 .\mvnw.cmd spring-boot:run
 ```
 
-API mac dinh chay tai:
+API mặc định chạy tại:
 
 ```text
 http://localhost:8080/api
 ```
 
-## Cau hinh ung dung
+## Cấu hình ứng dụng
 
-Repo hien chua co file `src/main/resources/application.properties`, vi vay can tao file nay khi chay local. Vi du cau hinh toi thieu:
+Repo hiện chưa có file `src/main/resources/application.properties`, vì vậy cần tạo file này khi chạy local. Ví dụ cấu hình tối thiểu:
 
 ```properties
 spring.application.name=WatchStore
@@ -95,10 +95,10 @@ jwt.expiration-ms=86400000
 app.cors.allowed-origin-patterns=http://localhost:3000,http://localhost:5173
 ```
 
-Cau hinh tuy chon cho cac tinh nang nang cao:
+Cấu hình tùy chọn cho các tính năng nâng cao:
 
 ```properties
-# Email OTP va email thong bao
+# Email OTP và email thông báo
 spring.mail.host=smtp.gmail.com
 spring.mail.port=587
 spring.mail.username=your_email@gmail.com
@@ -107,7 +107,7 @@ spring.mail.properties.mail.smtp.auth=true
 spring.mail.properties.mail.smtp.starttls.enable=true
 app.mail.from=${spring.mail.username}
 
-# Cloudinary upload anh san pham
+# Cloudinary upload ảnh sản phẩm
 cloudinary.url=cloudinary://api_key:api_secret@cloud_name
 cloudinary.folder=project-cnpm/products
 
@@ -131,36 +131,36 @@ app.ai.qdrant.search-top-k=5
 
 ## Database
 
-Ung dung dung Spring Data JPA voi MySQL. Co the de Hibernate tu tao/cap nhat schema bang:
+Ứng dụng dùng Spring Data JPA với MySQL. Có thể để Hibernate tự tạo/cập nhật schema bằng:
 
 ```properties
 spring.jpa.hibernate.ddl-auto=update
 ```
 
-Neu can du lieu mau hoac tham khao cau truc du lieu, xem:
+Nếu cần dữ liệu mẫu hoặc tham khảo cấu trúc dữ liệu, xem:
 
 - `demo/docs/data_v2.sql`
 - `data`
 
-## API chinh
+## API chính
 
 Base path: `/api`
 
-- `/api/auth`: dang ky, xac thuc email, dang nhap, quen mat khau, reset mat khau.
-- `/api/users`, `/api/customers`, `/api/staff`: quan ly tai khoan va nguoi dung.
-- `/api/categories`, `/api/products`: danh muc, san pham, anh san pham va so sanh.
-- `/api/cart`, `/api/orders`: gio hang, dat hang, QR payment, huy/cap nhat don.
-- `/api/reviews`: danh gia va diem trung binh san pham.
-- `/api/vouchers`: ma giam gia.
-- `/api/suppliers`, `/api/import-receipts`: nha cung cap va nhap hang.
-- `/api/warranties`: yeu cau bao hanh.
-- `/api/notifications`: thong bao.
-- `/api/chat`, `/api/products/{productId}/discussions`: chat AI, ho tro va hoi dap san pham.
-- `/api/reports`: dashboard va bao cao.
+- `/api/auth`: đăng ký, xác thực email, đăng nhập, quên mật khẩu, reset mật khẩu.
+- `/api/users`, `/api/customers`, `/api/staff`: quản lý tài khoản và người dùng.
+- `/api/categories`, `/api/products`: danh mục, sản phẩm, ảnh sản phẩm và so sánh.
+- `/api/cart`, `/api/orders`: giỏ hàng, đặt hàng, QR payment, hủy/cập nhật đơn.
+- `/api/reviews`: đánh giá và điểm trung bình sản phẩm.
+- `/api/vouchers`: mã giảm giá.
+- `/api/suppliers`, `/api/import-receipts`: nhà cung cấp và nhập hàng.
+- `/api/warranties`: yêu cầu bảo hành.
+- `/api/notifications`: thông báo.
+- `/api/chat`, `/api/products/{productId}/discussions`: chat AI, hỗ trợ và hỏi đáp sản phẩm.
+- `/api/reports`: dashboard và báo cáo.
 
-Chi tiet endpoint va flow nghiep vu nam trong `demo/API_FLOW.md`.
+Chi tiết endpoint và flow nghiệp vụ nằm trong `demo/API_FLOW.md`.
 
-## Lenh huu ich
+## Lệnh hữu ích
 
 ```bash
 cd demo
@@ -169,7 +169,7 @@ cd demo
 ./mvnw clean package
 ```
 
-Tren Windows PowerShell:
+Trên Windows PowerShell:
 
 ```powershell
 cd demo
@@ -178,11 +178,11 @@ cd demo
 .\mvnw.cmd clean package
 ```
 
-## Ket noi voi frontend
+## Kết nối với frontend
 
-Frontend tuong ung: <https://github.com/truonggiang205/WatchStore_FE>
+Frontend tương ứng: <https://github.com/truonggiang205/WatchStore_FE>
 
-Khi chay local, cau hinh frontend:
+Khi chạy local, cấu hình frontend:
 
 ```env
 VITE_API_BASE_URL=http://localhost:8080/api
